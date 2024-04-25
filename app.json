@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Life-game",
+    "slug": "Life-game",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "Life-game"
+}
