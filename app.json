@@ -5,6 +5,18 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
+    ],
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/helvetica-regular.ttf",
+            "./src/assets/fonts/roboto-700.ttf",
+            "./src/assets/fonts/comic-sans-ms-regular.ttf"
+          ]
+        }
+      ]
     ]
   },
   "name": "Life-game"

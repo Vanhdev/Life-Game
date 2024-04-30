@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/comic-sans-ms-regular.ttf",
+      "sha1": "fac429c59993d301d46fce758834297696978c04"
+    },
+    {
+      "path": "src/assets/fonts/helvetica-regular.ttf",
+      "sha1": "fac429c59993d301d46fce758834297696978c04"
+    },
+    {
+      "path": "src/assets/fonts/roboto-700.ttf",
+      "sha1": "62442a18a9fe9457c1afeabf683d263a691b7798"
+    }
+  ]
+}
