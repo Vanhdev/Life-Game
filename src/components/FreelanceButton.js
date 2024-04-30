@@ -24,12 +24,12 @@ function FreelanceButton(props) {
         const [modalText, setModalText] = useState("");
         const setBankBalance = props.setBankBalance;
 
-        function HandleJob(job) {
+        function HandleJob(fjob) {
             var text = "";
-            if (global.userInfo.education >= job.required.education &&
-                global.userInfo.skill.includes(job.required.skill) &&
-                global.userInfo.workingYear >= job.required.years) {
-                global.userInfo.bankBalance += job.salary;
+            if (global.userInfo.education >= fjob.required.education &&
+                global.userInfo.skill.includes(fjob.required.skill) &&
+                global.userInfo.workingYear >= fjob.required.years) {
+                global.userInfo.bankBalance += fjob.salary;
                 var userInfo = {
                     name: global.userInfo.name,
                     gender: global.userInfo.gender,
@@ -70,6 +70,7 @@ function FreelanceButton(props) {
             return (
                 <Pressable style={[styles.container, { backgroundColor: "#B7E4DB" }]} onPress={() => HandleJob(props.job)}>
                     <Text style={styles.joinClub}>{props.job.name}</Text>
+                    <Text style={styles.joinClub}>Salary: ${props.job.salary}</Text>
                 </Pressable>
             );
         }
@@ -121,7 +122,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#009688",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "row",
         borderRadius: 2,
         shadowColor: "#000",
         shadowOffset: {

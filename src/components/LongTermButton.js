@@ -63,6 +63,8 @@ function Jobs(props) {
         return (
             <Pressable style={[styles.container, { backgroundColor: "#B7E4DB" }]} onPress={() => ApplyJob(props.job)}>
                 <Text style={styles.joinClub}>{props.job.name}</Text>
+                <Text style={styles.joinClub}>Salary: ${props.job.salary}</Text>
+                <Text style={styles.required}>Required: {props.job.required.skill} - {props.job.required.years} YoE</Text>
             </Pressable>
         );
     }
@@ -120,7 +122,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#009688",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "row",
         borderRadius: 2,
         shadowColor: "#000",
         shadowOffset: {
@@ -151,6 +152,10 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginBottom: 50,
         textAlign: "center"
+    },
+    required: {
+        color: 'red',
+        fontSize: 15
     }
 });
 

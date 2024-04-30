@@ -38,6 +38,7 @@ function Hospital(props) {
         global.userInfo.bankBalance -= 200;
         setBankBalance(global.userInfo.bankBalance);
         global.userInfo.health += 20;
+        if (global.userInfo.health > 100) global.userInfo.health = 100;
         var userInfo = {
             name: global.userInfo.name,
             gender: global.userInfo.gender,

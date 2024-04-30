@@ -34,6 +34,7 @@ function ActivitiessScreen({ route, navigation }) {
             <View style={styles.acitivities}>
                 <Shopping
                     style={styles.materialButtonSuccess1}
+                    setBankBalance={setBankBalance}
                 ></Shopping>
                 <Date
                     style={styles.materialButtonSuccess1}

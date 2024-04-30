@@ -139,6 +139,12 @@ function MainGameScreen1({ route, navigation }) {
         }
       }
     }
+    if (userInfo.age >= 75) {
+      userInfo.health -= 40;
+    }
+    if (userInfo.age >= 100) {
+      userInfo.health = 0;
+    }
 
     if (userInfo.health <= 0) {
       const text = "Bạn đã bị chết";

@@ -18,6 +18,7 @@ function setDB(db, uid, data) {
 }
 
 function Products(props) {
+    const setBankBalance = props.setBankBalance;
 
     function Buy(product) {
         if (global.userInfo.products.length == 1 && global.userInfo.products[0] === "") global.userInfo.products = [];
@@ -54,13 +55,13 @@ function Products(props) {
             setModalText("Bạn không đủ tiền!");
             setModalVisible(true);
         }
-
+        setBankBalance(global.userInfo.bankBalance);
     }
 
     function ProductButton(props) {
         return (
             <Pressable style={[styles.container, { backgroundColor: "#B7E4DB" }]} onPress={() => Buy(props.product)}>
-                <Text style={styles.joinClub}>{props.product.name}</Text>
+                <Text style={styles.joinClub}>{props.product.name}: ${props.product.expense}</Text>
             </Pressable>
         );
     }
@@ -107,7 +108,7 @@ function Shopping(props) {
             <TouchableOpacity style={[styles.container, props.style]} onPress={() => { setVisible(!visible); }}>
                 <Text style={styles.joinClub}>Shopping </Text>
             </TouchableOpacity>
-            <Products visible={visible}></Products>
+            <Products visible={visible} setBankBalance={props.setBankBalance}></Products>
         </>
 
     );

@@ -86,7 +86,7 @@ function SchoolScreen({ route, navigation }) {
         {/* <MaterialButtonSuccess7
           style={styles.materialButtonSuccess7}
         ></MaterialButtonSuccess7> */}
-        {global.userInfo.education == "university" &&
+        {global.userInfo.education == 3 &&
           <MaterialButtonSuccess8
             style={styles.materialButtonSuccess8}
           ></MaterialButtonSuccess8>
