@@ -39,7 +39,7 @@ export const freelanceJobs = [
         name: "Build website",
         required: {
             education: 3,
-            skill: "IT",
+            skill: "JavaScript",
             years: 0
         },
         salary: 150
@@ -48,7 +48,7 @@ export const freelanceJobs = [
         name: "Làm thuê đồ án",
         required: {
             education: 3,
-            skill: "IT",
+            skill: "C#",
             years: 0
         },
         salary: 150
@@ -57,7 +57,7 @@ export const freelanceJobs = [
         name: "Thiết kế website",
         required: {
             education: 3,
-            skill: "IT",
+            skill: "Java",
             years: 0
         },
         salary: 130

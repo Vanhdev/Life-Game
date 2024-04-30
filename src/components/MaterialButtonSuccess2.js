@@ -21,7 +21,7 @@ function Classes(props) {
 
   function JoinClass(name) {
     if (global.userInfo.classes.length == 1 && global.userInfo.classes[0] === "") global.userInfo.classes = [];
-    if (global.userInfo.classes.length < 3 && !global.userInfo.classes.includes(name)) {
+    if (!global.userInfo.classes.includes(name)) {
       if (global.userInfo.intelligence < 90) global.userInfo.intelligence += 10;
       else global.userInfo.intelligence = 100;
       var userInfo = {

@@ -16,96 +16,101 @@ function setDB(db, uid, data) {
         });
 }
 
-function FreelanceJob(props) {
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [modalText, setModalText] = useState("");
-
-    function HandleJob(job) {
-        if (global.userInfo.education >= job.required.education &&
-            global.userInfo.skill.includes(job.required.skill) &&
-            global.userInfo.workingYear >= job.required.years) {
-            var userInfo = {
-                name: global.userInfo.name,
-                gender: global.userInfo.gender,
-                age: global.userInfo.age,
-                bankBalance: (global.userInfo.bankBalance + job.salary),
-                health: global.userInfo.health,
-                intelligence: global.userInfo.intelligence,
-                applyTime: global.userInfo.applyTime,
-                classes: global.userInfo.classes,
-                clubs: global.userInfo.clubs,
-                job: global.userInfo.job,
-                education: global.userInfo.education,
-                skill: global.userInfo.skill,
-                workingYear: global.userInfo.workingYear,
-                lastLogin: global.userInfo.lastLogin,
-                products: global.userInfo.products,
-                relationship: global.userInfo.relationship
-            };
-            console.log(userInfo);
-            global.userInfo = userInfo;
-            const db = getDatabase(firebaseApp)
-            AsyncStorage.getItem('uid').then((uid) => {
-                setDB(db, uid, userInfo);
-            });
-
-            const text = "Bạn đã hoàn thành việc: " + job.name;
-            setModalText(text);
-            setModalVisible(true);
-        }
-        else {
-            setModalText("Bạn chưa đủ kĩ năng cho công việc này!");
-            setModalVisible(true);
-        }
-    }
-
-    function JobButton(props) {
-        return (
-            <Pressable style={[styles.container, { backgroundColor: "#B7E4DB" }]} onPress={() => HandleJob(props.job)}>
-                <Text style={styles.joinClub}>{props.job.name}</Text>
-            </Pressable>
-        );
-    }
-    function handleModal() {
-        setModalVisible(false);
-    }
-
-    if (props.visible) {
-        return (
-            <ScrollView style={styles.jobView}>
-                {
-                    freelanceJobs.map(job => {
-                        return (
-                            <JobButton job={job}>
-
-                            </JobButton>
-                        );
-                    })
-                }
-                <Modal style={{ height: 100 }} isVisible={isModalVisible}>
-                    <View style={styles.modal}>
-                        <Text style={styles.modalText}>{modalText}</Text>
-                        <Button title="OK" onPress={handleModal} />
-                    </View>
-                </Modal>
-            </ScrollView >
-        );
-    }
-    return (
-        <>
-
-        </>
-    );
-}
-
 function FreelanceButton(props) {
     const [visible, setVisible] = useState(false);
+
+    function FreelanceJob(props) {
+        const [isModalVisible, setModalVisible] = useState(false);
+        const [modalText, setModalText] = useState("");
+        const setBankBalance = props.setBankBalance;
+
+        function HandleJob(job) {
+            var text = "";
+            if (global.userInfo.education >= job.required.education &&
+                global.userInfo.skill.includes(job.required.skill) &&
+                global.userInfo.workingYear >= job.required.years) {
+                global.userInfo.bankBalance += job.salary;
+                var userInfo = {
+                    name: global.userInfo.name,
+                    gender: global.userInfo.gender,
+                    age: global.userInfo.age,
+                    bankBalance: global.userInfo.bankBalance,
+                    health: global.userInfo.health,
+                    intelligence: global.userInfo.intelligence,
+                    applyTime: global.userInfo.applyTime,
+                    classes: global.userInfo.classes,
+                    clubs: global.userInfo.clubs,
+                    job: global.userInfo.job,
+                    education: global.userInfo.education,
+                    skill: global.userInfo.skill,
+                    workingYear: global.userInfo.workingYear,
+                    lastLogin: global.userInfo.lastLogin,
+                    products: global.userInfo.products,
+                    relationship: global.userInfo.relationship
+                };
+                global.userInfo = userInfo;
+                const db = getDatabase(firebaseApp)
+                AsyncStorage.getItem('uid').then((uid) => {
+                    setDB(db, uid, userInfo);
+                });
+
+                text = "Bạn đã hoàn thành công việc này!";
+            }
+            else {
+                text = "Bạn chưa đủ kĩ năng cho công việc này!";
+            }
+
+            setModalText(text);
+            setModalVisible(true);
+
+            setBankBalance(global.userInfo.bankBalance);
+        }
+
+        function JobButton(props) {
+            return (
+                <Pressable style={[styles.container, { backgroundColor: "#B7E4DB" }]} onPress={() => HandleJob(props.job)}>
+                    <Text style={styles.joinClub}>{props.job.name}</Text>
+                </Pressable>
+            );
+        }
+        function handleModal() {
+            setModalVisible(false);
+        }
+
+        if (props.visible) {
+            return (
+                <ScrollView style={styles.jobView}>
+                    {
+                        freelanceJobs.map(job => {
+                            return (
+                                <JobButton job={job}>
+
+                                </JobButton>
+                            );
+                        })
+                    }
+                    <Modal style={{ height: 100 }} isVisible={isModalVisible}>
+                        <View style={styles.modal}>
+                            <Text style={styles.modalText}>{modalText}</Text>
+                            <Button title="OK" onPress={handleModal} />
+                        </View>
+                    </Modal>
+                </ScrollView >
+            );
+        }
+        return (
+            <>
+
+            </>
+        );
+    }
+
     return (
         <>
             <TouchableOpacity style={[styles.container, props.style]} onPress={() => { setVisible(!visible) }}>
                 <Text style={styles.joinClub}>Freelance jobs </Text>
             </TouchableOpacity>
-            <FreelanceJob visible={visible}></FreelanceJob>
+            <FreelanceJob visible={visible} setBankBalance={props.setBankBalance}></FreelanceJob>
         </>
 
     );

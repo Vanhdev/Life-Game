@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 import MaterialToast1 from "../components/MaterialToast1";
 import Banner from "../components/Banner";
@@ -9,6 +9,7 @@ import Date from "../components/Date";
 import Hospital from "../components/Hospital";
 
 function ActivitiessScreen({ route, navigation }) {
+    const [bankBalance, setBankBalance] = useState(global.userInfo.bankBalance);
     return (
         <View style={styles.container}>
             <View style={styles.group1Stack}>
@@ -24,7 +25,7 @@ function ActivitiessScreen({ route, navigation }) {
                                 <Text style={styles.nameText}>{global.userInfo.name}</Text>
                                 <Text style={styles.ageText}>Age: {global.userInfo.age}</Text>
                             </View>
-                            <MaterialToast1 style={styles.materialToast1} bankBalance={global.userInfo.bankBalance}></MaterialToast1>
+                            <MaterialToast1 style={styles.materialToast1} bankBalance={bankBalance}></MaterialToast1>
                         </View>
                     </View>
                 </View>
@@ -41,8 +42,8 @@ function ActivitiessScreen({ route, navigation }) {
                 </Date>
                 <Hospital
                     style={styles.materialButtonSuccess1}
+                    setBankBalance={setBankBalance}
                 >
-
                 </Hospital>
             </View>
         </View>

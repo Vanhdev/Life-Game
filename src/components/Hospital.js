@@ -9,6 +9,7 @@ import { products } from "../data/products";
 function setDB(db, uid, data) {
     set(ref(db, 'users/' + uid), data)
         .then(() => {
+            console.log("OK");
             // Data saved successfully!
         })
         .catch((error) => {
@@ -20,6 +21,7 @@ function Hospital(props) {
     const [modalText, setModalText] = useState("");
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModalChoiceVisible, setModalChoiceVisible] = useState(false);
+    const setBankBalance = props.setBankBalance;
 
     function healthCare() {
         if (global.userInfo.bankBalance >= 200) {
@@ -34,6 +36,8 @@ function Hospital(props) {
 
     function handleYes() {
         global.userInfo.bankBalance -= 200;
+        setBankBalance(global.userInfo.bankBalance);
+        global.userInfo.health += 20;
         var userInfo = {
             name: global.userInfo.name,
             gender: global.userInfo.gender,

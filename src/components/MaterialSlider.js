@@ -5,7 +5,7 @@ import Slider from "@react-native-community/slider";
 export default function MaterialSlider(props) {
   return (
     <View style={[styles.container, props.style]}>
-      <Slider minimumValue={0} maximumValue={100} value={props.value} style={styles.slider}></Slider>
+      <Slider minimumValue={0} maximumValue={100} value={props.value} style={styles.slider} disabled={true}></Slider>
     </View>
   );
 }
