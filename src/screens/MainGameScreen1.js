@@ -85,7 +85,6 @@ function MainGameScreen1({ route, navigation }) {
             }
           }
           else {
-            console.log("!OK");
             const gender = Math.floor(Math.random() * 2) == 1 ? "male" : "female";
 
             global.userInfo = {

@@ -44,7 +44,7 @@ function DateScreen({ route, navigation }) {
                 const gender = (global.userInfo.gender == "male") ? "female" : "male";
                 const name = RandonName(gender);
 
-                setDarling({ name: name, age: randomAge, happiness: 50, type: "girl-friend" });
+                setDarling({ name: name, age: randomAge, happiness: 50, type: "partner" });
                 setVisible(true);
             }
             else {
