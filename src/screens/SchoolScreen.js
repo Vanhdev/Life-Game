@@ -8,7 +8,7 @@ import MaterialButtonSuccess6 from "../components/MaterialButtonSuccess6";
 import MaterialButtonSuccess7 from "../components/MaterialButtonSuccess7";
 import MaterialButtonSuccess8 from "../components/MaterialButtonSuccess8";
 import { getDatabase, ref, child, get, set } from "firebase/database";
-import { firebaseApp } from "../../firebaseConfig";
+import { firebaseApp } from "../configs/firebaseConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -73,9 +73,12 @@ function SchoolScreen({ route, navigation }) {
         <Banner style={styles.banner} Text="School" onPress={() => { navigation.navigate("MainGameScreen") }}></Banner>
       </View>
       <View style={styles.acitivities}>
-        <MaterialButtonSuccess2
-          style={styles.materialButtonSuccess1}
-        ></MaterialButtonSuccess2>
+        {global.userInfo.education < 4 && global.userInfo.age < 18 &&
+
+          < MaterialButtonSuccess2
+            style={styles.materialButtonSuccess1}
+          ></MaterialButtonSuccess2>
+        }
         <MaterialButtonSuccess
           style={styles.materialButtonSuccess2}
         ></MaterialButtonSuccess>
@@ -86,14 +89,14 @@ function SchoolScreen({ route, navigation }) {
         {/* <MaterialButtonSuccess7
           style={styles.materialButtonSuccess7}
         ></MaterialButtonSuccess7> */}
-        {global.userInfo.education == 3 &&
+        {global.userInfo.education == 4 &&
           <MaterialButtonSuccess8
             style={styles.materialButtonSuccess8}
           ></MaterialButtonSuccess8>
         }
 
       </View>
-    </View>
+    </View >
   );
 }
 

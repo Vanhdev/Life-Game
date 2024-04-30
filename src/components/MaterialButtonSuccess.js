@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import { StyleSheet, TouchableOpacity, Text, View, Button, Pressable } from "react-native";
 import { getDatabase, ref, child, get, set } from "firebase/database";
-import { firebaseApp } from "../../firebaseConfig";
+import { firebaseApp } from "../configs/firebaseConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from "react-native-modal";
 import { products } from "../data/products";

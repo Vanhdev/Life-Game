@@ -4,7 +4,7 @@ import MaterialUnderlineTextbox from "../components/MaterialUnderlineTextbox";
 import MaterialRightIconTextbox from "../components/MaterialRightIconTextbox";
 import MaterialButtonSuccess1 from "../components/MaterialButtonSuccess1";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { firebaseApp } from "../../firebaseConfig";
+import { firebaseApp } from "../configs/firebaseConfig";
 
 function SignUpScreen({ route, navigation }) {
 

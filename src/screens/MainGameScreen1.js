@@ -7,11 +7,12 @@ import CupertinoSegmentWithThreeTabs from "../components/CupertinoSegmentWithThr
 import Svg, { Ellipse } from "react-native-svg";
 import { RandonName } from "../data/FamilyName";
 import { getDatabase, ref, child, get, set } from "firebase/database";
-import { firebaseApp } from "../../firebaseConfig";
+import { firebaseApp } from "../configs/firebaseConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import Modal from "react-native-modal";
 import { death, diseases } from "../data/suddenDeath";
+import { EasyQuestion, MediumQuestion, HardQuestion } from "../data/question";
 
 function MainGameScreen1({ route, navigation }) {
   const [userInfo, setUserInfo] = useState({});
@@ -22,6 +23,9 @@ function MainGameScreen1({ route, navigation }) {
   const [modalText, setModalText] = useState("");
   const [isModalGraduateVisible, setModalGraduateVisible] = useState(false);
   const [isResetVisible, setResetVisible] = useState(false);
+  const [isAskVisible, setAskVisible] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState(false);
 
   function setDB(db, uid, data) {
     set(ref(db, 'users/' + uid), data)
@@ -40,7 +44,9 @@ function MainGameScreen1({ route, navigation }) {
     if (isFocused) {
       AsyncStorage.getItem('uid').then((uid) => {
         get(child(dbRef, `users/${uid}/`)).then((snapshot) => {
+          console.log("1");
           if (snapshot.exists()) {
+            console.log("OK");
             global.userInfo = snapshot.val();
             if (global.userInfo.lastLogin != date.toLocaleDateString()) {
               global.userInfo.bankBalance += 5;
@@ -79,6 +85,7 @@ function MainGameScreen1({ route, navigation }) {
             }
           }
           else {
+            console.log("!OK");
             const gender = Math.floor(Math.random() * 2) == 1 ? "male" : "female";
 
             global.userInfo = {
@@ -98,9 +105,10 @@ function MainGameScreen1({ route, navigation }) {
               lastLogin: date.toLocaleDateString(),
               products: "",
               relationship: [
-                { name: "", age: 0, type: "" }
+                { name: "", age: 0, type: "", happiness: 0 }
               ]
             };
+            console.log(global.userInfo);
             setUserInfo(global.userInfo);
             setDB(db, uid, global.userInfo);
           }
@@ -152,11 +160,7 @@ function MainGameScreen1({ route, navigation }) {
       setResetVisible(true);
       return;
     }
-    setDisabled(true);
-    userInfo.age += 1;
-    if (userInfo.age == 6) userInfo.education = 1;
-    if (userInfo.age == 11) userInfo.education = 2;
-    if (userInfo.age == 15) userInfo.education = 3;
+
     if (userInfo.age == 18) {
       userInfo.bankBalance += 10000;
       setModalText("Bạn có muốn học đại học không?");
@@ -169,9 +173,32 @@ function MainGameScreen1({ route, navigation }) {
       setModalGraduateVisible(true);
     }
 
-    console.log(userInfo.job.name);
+    if (userInfo.age >= 6 && userInfo.age < 11) {
+      const question = EasyQuestion[Math.floor(Math.random() * EasyQuestion.length)];
+      setQuestion(question.question);
+      setAnswer(question.answer);
+      setAskVisible(true);
+    }
+    if (userInfo.age >= 11 && userInfo.age < 15) {
+      const question = MediumQuestion[Math.floor(Math.random() * MediumQuestion.length)];
+      setQuestion(question.question);
+      setAnswer(question.answer);
+      setAskVisible(true);
+    }
+    if (userInfo.age >= 15 && userInfo.age < 18) {
+      const question = HardQuestion[Math.floor(Math.random() * HardQuestion.length)];
+      setQuestion(question.question);
+      setAnswer(question.answer);
+      setAskVisible(true);
+      if (userInfo.age == 18) setModalVisible(false);
+    }
+    setDisabled(true);
+    userInfo.age += 1;
+    if (userInfo.age == 6) userInfo.education = 1;
+    if (userInfo.age == 11) userInfo.education = 2;
+    if (userInfo.age == 15) userInfo.education = 3;
 
-    if (userInfo.job.name !== "") {
+    if (userInfo.job.name !== undefined && userInfo.job.name !== "") {
       userInfo.bankBalance += (userInfo.job.salary * 12);
       userInfo.workingYear += 1;
       console.log(userInfo);
@@ -214,7 +241,7 @@ function MainGameScreen1({ route, navigation }) {
   }
 
   function handleYesModal() {
-    userInfo.education = 4
+    userInfo.education = 4;
     setUserInfo({
       name: userInfo.name,
       gender: userInfo.gender,
@@ -233,6 +260,7 @@ function MainGameScreen1({ route, navigation }) {
       products: userInfo.products,
       relationship: userInfo.relationship
     });
+    global.userInfo = userInfo;
     const db = getDatabase(firebaseApp)
     AsyncStorage.getItem('uid').then((uid) => {
       setDB(db, uid, userInfo);
@@ -266,7 +294,7 @@ function MainGameScreen1({ route, navigation }) {
       lastLogin: date.toLocaleDateString(),
       products: "",
       relationship: [
-        { name: "", age: 0, type: "" }
+        { name: "", age: 0, type: "", happiness: 0 }
       ]
     };
     setUserInfo(global.userInfo);
@@ -276,6 +304,81 @@ function MainGameScreen1({ route, navigation }) {
       setDB(db, uid, userInfo);
     });
     setResetVisible(false);
+  }
+
+  function handleYes() {
+    if (answer) {
+      userInfo.intelligence += 7;
+    }
+    else {
+      userInfo.intelligence -= 7;
+    }
+    setUserInfo({
+      name: userInfo.name,
+      gender: userInfo.gender,
+      age: userInfo.age,
+      bankBalance: userInfo.bankBalance,
+      health: userInfo.health,
+      intelligence: userInfo.intelligence,
+      applyTime: userInfo.applyTime,
+      classes: userInfo.classes,
+      clubs: userInfo.clubs,
+      job: userInfo.clubs,
+      education: userInfo.education,
+      skill: userInfo.skill,
+      workingYear: userInfo.workingYear,
+      lastLogin: userInfo.lastLogin,
+      products: userInfo.products,
+      relationship: userInfo.relationship
+    });
+    global.userInfo = userInfo;
+    const db = getDatabase(firebaseApp)
+    AsyncStorage.getItem('uid').then((uid) => {
+      setDB(db, uid, userInfo);
+    });
+    setAskVisible(false);
+    if (userInfo.age == 18) {
+      setModalText("Bạn có muốn học đại học không?");
+      setModalVisible(true);
+    }
+  }
+
+  function handleNo() {
+    if (answer) {
+      userInfo.intelligence -= 7;
+    }
+    else {
+      userInfo.intelligence += 7;
+    }
+    setUserInfo({
+      name: userInfo.name,
+      gender: userInfo.gender,
+      age: userInfo.age,
+      bankBalance: userInfo.bankBalance,
+      health: userInfo.health,
+      intelligence: userInfo.intelligence,
+      applyTime: userInfo.applyTime,
+      classes: userInfo.classes,
+      clubs: userInfo.clubs,
+      job: userInfo.clubs,
+      education: userInfo.education,
+      skill: userInfo.skill,
+      workingYear: userInfo.workingYear,
+      lastLogin: userInfo.lastLogin,
+      products: userInfo.products,
+      relationship: userInfo.relationship
+    });
+    global.userInfo = userInfo;
+    const db = getDatabase(firebaseApp)
+    AsyncStorage.getItem('uid').then((uid) => {
+      setDB(db, uid, userInfo);
+    });
+    setAskVisible(false);
+
+    if (userInfo.age == 18) {
+      setModalText("Bạn có muốn học đại học không?");
+      setModalVisible(true);
+    }
   }
 
   return (
@@ -372,6 +475,15 @@ function MainGameScreen1({ route, navigation }) {
         <View style={styles.modal}>
           <Text style={styles.modalText}>{modalText}</Text>
           <Button title="Reset" onPress={Reset} />
+        </View>
+      </Modal>
+      <Modal style={{ height: 100 }} isVisible={isAskVisible}>
+        <View style={styles.modal}>
+          <Text style={styles.modalText}>{question}</Text>
+          <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+            <Button style={{ width: 100, height: 50 }} title="Đúng" onPress={handleYes} />
+            <Button title="Sai" onPress={handleNo} />
+          </View>
         </View>
       </Modal>
     </View>

@@ -6,7 +6,7 @@ import MaterialButtonSuccess1 from "../components/MaterialButtonSuccess1";
 import MaterialButtonSuccess5 from "../components/MaterialButtonSuccess5";
 import Icon from "react-native-vector-icons/Entypo";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import firebaseApp from "../../firebaseConfig";
+import firebaseApp from "../configs/firebaseConfig";
 import { getDatabase, ref, child, get, set } from "firebase/database";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -28,6 +28,7 @@ function LogInScreen({ route, navigation }) {
 
     try {
       var res = await signInWithEmailAndPassword(auth, email, password);
+      console.log(res);
       try {
         await AsyncStorage.setItem('uid', res.user.uid);
       }

@@ -35,6 +35,7 @@ export default App = () => {
           <Stack.Screen name="ActivitiesScreen" component={ActivitiessScreen} />
           <Stack.Screen name="SchoolScreen" component={SchoolScreen} />
           <Stack.Screen name="JobsScreen" component={JobsScreen} />
+          <Stack.Screen name="DateScreen" component={MainGameScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </DataContext.Provider>

@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import { StyleSheet, TouchableOpacity, Text, View, Button, Pressable, ScrollView } from "react-native";
 import { getDatabase, ref, child, get, set } from "firebase/database";
-import { firebaseApp } from "../../firebaseConfig";
+import { firebaseApp } from "../configs/firebaseConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from "react-native-modal";
 import { jobs } from "../data/Jobs";
@@ -108,7 +108,7 @@ function LongTermButton(props) {
     const [visible, setVisible] = useState(false);
     return (
         <>
-            <TouchableOpacity style={[styles.container, props.style]} onPress={() => { setVisible(!visible); console.log(visible); }}>
+            <TouchableOpacity style={[styles.container, props.style]} onPress={() => { setVisible(!visible) }}>
                 <Text style={styles.joinClub}>Long-term jobs </Text>
             </TouchableOpacity>
             <Jobs visible={visible}></Jobs>

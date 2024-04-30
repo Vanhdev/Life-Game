@@ -4,7 +4,7 @@ export const jobs = [
         required: {
             education: 4,
             skill: "PHP",
-            years: 1
+            years: 0
         },
         salary: 500
     },
@@ -13,7 +13,7 @@ export const jobs = [
         required: {
             education: 4,
             skill: "JavaScript",
-            years: 1
+            years: 0
         },
         salary: 510
     },
@@ -22,7 +22,7 @@ export const jobs = [
         required: {
             education: 4,
             skill: "Java",
-            years: 1
+            years: 0
         },
         salary: 504
     },
@@ -31,7 +31,7 @@ export const jobs = [
         required: {
             education: 4,
             skill: "C#",
-            years: 1
+            years: 0
         },
         salary: 504
     },
@@ -40,7 +40,7 @@ export const jobs = [
         required: {
             education: 4,
             skill: "Python",
-            years: 1
+            years: 0
         },
         salary: 507
     },
@@ -49,7 +49,7 @@ export const jobs = [
         required: {
             education: 4,
             skill: "Golang",
-            years: 1
+            years: 0
         },
         salary: 509
     },
@@ -175,7 +175,7 @@ export const jobs = [
         required: {
             education: 4,
             skill: "IT",
-            years: 1
+            years: 0
         },
         salary: 510
     },
@@ -193,7 +193,7 @@ export const jobs = [
         required: {
             education: 0,
             skill: "",
-            years: 1
+            years: 0
         },
         salary: 504,
         harm: 5
@@ -212,7 +212,7 @@ export const jobs = [
         required: {
             education: 0,
             skill: "",
-            years: 1
+            years: 0
         },
         salary: 609,
         harm: 10
