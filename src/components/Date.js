@@ -19,20 +19,17 @@ function DateView(props) {
 }
 
 function handleDate() {
-    if (global.userInfo.relationship.length == 1 && global.userInfo.relationship[0].name == "") {
 
-    }
 }
 
 function Date(props) {
-    const [visible, setVisible] = useState(false);
+    // const [visible, setVisible] = useState(false);
 
     return (
         <>
-            <TouchableOpacity style={[styles.container, props.style]} disabled={props.disabled} onPress={handleDate}>
-                <Text style={styles.joinClub}>Date </Text>
+            <TouchableOpacity style={[styles.container, props.style]} disabled={props.disabled} onPress={props.onPress}>
+                <Text style={styles.joinClub}>Dating</Text>
             </TouchableOpacity>
-            <DateView visible={visible}></DateView>
         </>
 
     );

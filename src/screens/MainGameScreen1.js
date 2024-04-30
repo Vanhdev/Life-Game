@@ -49,8 +49,8 @@ function MainGameScreen1({ route, navigation }) {
             console.log("OK");
             global.userInfo = snapshot.val();
             if (global.userInfo.lastLogin != date.toLocaleDateString()) {
-              global.userInfo.bankBalance += 5;
-              if (global.userInfo.health < 100) global.userInfo.health += 1;
+              global.userInfo.bankBalance += 100;
+              if (global.userInfo.health < 100) global.userInfo.health += 5;
 
               global.userInfo.lastLogin = date.toLocaleDateString();
               setUserInfo({
@@ -198,11 +198,14 @@ function MainGameScreen1({ route, navigation }) {
     if (userInfo.age == 11) userInfo.education = 2;
     if (userInfo.age == 15) userInfo.education = 3;
 
-    if (userInfo.job.name !== undefined && userInfo.job.name !== "") {
+    if (userInfo.age < 60 && userInfo.job.name !== undefined && userInfo.job.name !== "") {
       userInfo.bankBalance += (userInfo.job.salary * 12);
       userInfo.workingYear += 1;
       console.log(userInfo);
       if (userInfo.job.harm != undefined) userInfo.health -= userInfo.job.harm;
+    }
+    if (userInfo.age >= 60) {
+      userInfo.bankBalance += 19200;
     }
     setUserInfo({
       name: userInfo.name,
@@ -309,6 +312,7 @@ function MainGameScreen1({ route, navigation }) {
   function handleYes() {
     if (answer) {
       userInfo.intelligence += 7;
+      if (userInfo.intelligence > 100) userInfo.intelligence = 100;
     }
     else {
       userInfo.intelligence -= 7;
@@ -349,6 +353,7 @@ function MainGameScreen1({ route, navigation }) {
     }
     else {
       userInfo.intelligence += 7;
+      if (userInfo.intelligence > 100) userInfo.intelligence = 100;
     }
     setUserInfo({
       name: userInfo.name,

@@ -39,6 +39,7 @@ function ActivitiessScreen({ route, navigation }) {
                 <Date
                     style={styles.materialButtonSuccess1}
                     disabled={global.userInfo.age < 18}
+                    onPress={() => { navigation.navigate("DateScreen") }}
                 >
                 </Date>
                 <Hospital

@@ -12,6 +12,7 @@ import SchoolScreen from './src/screens/SchoolScreen';
 import SchoolScreen1 from './src/screens/SchoolScreen1';
 import JobsScreen from './src/screens/JobsScreen';
 import ActivitiessScreen from './src/screens/ActivityScreen';
+import DateScreen from './src/screens/DateScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +36,7 @@ export default App = () => {
           <Stack.Screen name="ActivitiesScreen" component={ActivitiessScreen} />
           <Stack.Screen name="SchoolScreen" component={SchoolScreen} />
           <Stack.Screen name="JobsScreen" component={JobsScreen} />
-          <Stack.Screen name="DateScreen" component={MainGameScreen} />
+          <Stack.Screen name="DateScreen" component={DateScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </DataContext.Provider>
