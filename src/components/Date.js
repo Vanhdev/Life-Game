@@ -31,7 +31,6 @@ function Date(props) {
                 <Text style={styles.joinClub}>Dating</Text>
             </TouchableOpacity>
         </>
-
     );
 }
 
